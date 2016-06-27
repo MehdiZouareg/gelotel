@@ -9,5 +9,5 @@ use Doctrine\ORM\Mapping as ORM;
 */
 class Utilisateur extends BaseUser
 {
-
+    
 }
