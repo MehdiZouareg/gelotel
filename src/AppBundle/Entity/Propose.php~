@@ -1,0 +1,53 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Propose
+ *
+ * @ORM\Table(name="propose", indexes={@ORM\Index(name="FK_propose_id_Chambre", columns={"id_Chambre"}), @ORM\Index(name="FK_propose_id_Hotel", columns={"id_Hotel"}), @ORM\Index(name="IDX_3DF2D060BF396750", columns={"id"})})
+ * @ORM\Entity
+ */
+class Propose
+{
+    /**
+     * @var \Hotel
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Hotel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_Hotel", referencedColumnName="id")
+     * })
+     */
+    private $idHotel;
+
+    /**
+     * @var \Options
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Options")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
+     */
+    private $id;
+
+    /**
+     * @var \Chambre
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="Chambre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_Chambre", referencedColumnName="id")
+     * })
+     */
+    private $idChambre;
+
+
+}
+

@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Hotel
+ *
+ * @ORM\Table(name="Hotel")
+ * @ORM\Entity
+ */
+class Hotel
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=25, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbChambres", type="integer", nullable=true)
+     */
+    private $nbchambres;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=25, nullable=true)
+     */
+    private $ville;
+
+
+}
+
