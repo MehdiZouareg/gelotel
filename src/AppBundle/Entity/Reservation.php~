@@ -1,0 +1,60 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Reservation
+ *
+ * @ORM\Table(name="Reservation", indexes={@ORM\Index(name="FK_Reservation_id_Chambre", columns={"id_Chambre"}), @ORM\Index(name="FK_Reservation_id_Hotel", columns={"id_Hotel"})})
+ * @ORM\Entity
+ */
+class Reservation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateArr", type="date", nullable=true)
+     */
+    private $datearr;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDep", type="date", nullable=true)
+     */
+    private $datedep;
+
+    /**
+     * @var \Hotel
+     *
+     * @ORM\ManyToOne(targetEntity="Hotel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_Hotel", referencedColumnName="id")
+     * })
+     */
+    private $idHotel;
+
+    /**
+     * @var \Chambre
+     *
+     * @ORM\ManyToOne(targetEntity="Chambre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_Chambre", referencedColumnName="id")
+     * })
+     */
+    private $idChambre;
+
+
+}
+
