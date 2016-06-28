@@ -26,13 +26,6 @@ class Hotel
     private $nom;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbChambres", type="integer", nullable=true)
-     */
-    private $nbchambres;
-
-    /**
      * @var string
      * @ORM\Column(name="ville", type="string", length=25, nullable=true)
      */
@@ -125,21 +118,6 @@ class Hotel
         $this->nom = $nom;
     }
 
-    /**
-     * @return int
-     */
-    public function getNbchambres()
-    {
-        return $this->nbchambres;
-    }
-
-    /**
-     * @param int $nbchambres
-     */
-    public function setNbchambres($nbchambres)
-    {
-        $this->nbchambres = $nbchambres;
-    }
 
     /**
      * @return string

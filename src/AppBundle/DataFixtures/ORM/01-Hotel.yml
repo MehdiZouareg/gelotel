@@ -1,0 +1,4 @@
+AppBundle\Entity\Hotel:
+  Hotel-{1..50}:
+    nom: <name()>
+    ville: <city()>
