@@ -130,6 +130,7 @@ class Reservation
     {
         return $this->Hotel;
     }
+    
 
     /**
      * @param Hotel $Hotel
