@@ -1,0 +1,6 @@
+AppBundle\Entity\Chambre:
+  Chambre-{1..50}:
+    disponible: <boolean()>
+    type: <word()>
+    Hotel: '@Hotel-<numberBetween(1,50)>'
+    Options: <numberBetween(1,50)>x @Options-*
