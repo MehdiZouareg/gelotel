@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 /**
@@ -50,6 +51,12 @@ class Reservation
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur")
      */
     private $Utilisateur;
+
+    public function __construct()
+    {
+        $this->datearr = new \DateTime();
+        $this->datedep = new \DateTime();
+    }
 
     /**
      * @return Utilisateur
