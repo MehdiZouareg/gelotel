@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
     <h1>Reservation creation</h1>
@@ -13,4 +13,8 @@
             <a href="{{ path('reservation_index') }}">Back to the list</a>
         </li>
     </ul>
+    {% javascripts
+    '@AppBundle/Resources/public/js/reservation/script_ajout_chambres.js'%}
+
+    {% endjavascripts %}
 {% endblock %}
