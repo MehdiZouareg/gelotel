@@ -2,19 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Hotel
- *
- * @ORM\Table(name="Hotel")
  * @ORM\Entity
  */
 class Hotel
 {
+
     /**
      * @var integer
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,7 +21,6 @@ class Hotel
 
     /**
      * @var string
-     *
      * @ORM\Column(name="nom", type="string", length=25, nullable=true)
      */
     private $nom;
@@ -37,17 +34,67 @@ class Hotel
 
     /**
      * @var string
-     *
      * @ORM\Column(name="ville", type="string", length=25, nullable=true)
      */
     private $ville;
 
+    public function __construct()
+    {
+        $this->Chambres = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChambres()
+    {
+        return $this->Chambres;
+    }
+
+    /**
+     * @param ArrayCollection $Chambres
+     */
+    public function setChambres($Chambres)
+    {
+        $this->Chambres->clear();
+
+        foreach ($Chambres as $Chambre)
+        {
+            $this->AddChambre($Chambre);
+        }
+    }
+
+    public function AddChambre(Chambre $Chambre)
+    {
+        $this->Chambres->add($Chambre);
+
+        if($Chambre->getHotel() !== $this)
+        {
+            $Chambre->setHotel($this);
+        }
+
+    }
+
+    public function RemoveChambre(Chambre $Chambre)
+    {
+        $this->Chambres->removeElement($Chambre);
+
+        if($Chambre->getHotel() === $this)
+        {
+            $Chambre->setHotel(null);
+        }
+
+    }
 
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Chambre", mappedBy="Hotel")
+     */
+    private $Chambres;
+
+    /**
+     * @return int
      */
     public function getId()
     {
@@ -55,22 +102,14 @@ class Hotel
     }
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Hotel
+     * @param int $id
      */
-    public function setNom($nom)
+    public function setId($id)
     {
-        $this->nom = $nom;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get nom
-     *
      * @return string
      */
     public function getNom()
@@ -79,23 +118,15 @@ class Hotel
     }
 
     /**
-     * Set nbchambres
-     *
-     * @param integer $nbchambres
-     *
-     * @return Hotel
+     * @param string $nom
      */
-    public function setNbchambres($nbchambres)
+    public function setNom($nom)
     {
-        $this->nbchambres = $nbchambres;
-
-        return $this;
+        $this->nom = $nom;
     }
 
     /**
-     * Get nbchambres
-     *
-     * @return integer
+     * @return int
      */
     public function getNbchambres()
     {
@@ -103,26 +134,27 @@ class Hotel
     }
 
     /**
-     * Set ville
-     *
-     * @param string $ville
-     *
-     * @return Hotel
+     * @param int $nbchambres
      */
-    public function setVille($ville)
+    public function setNbchambres($nbchambres)
     {
-        $this->ville = $ville;
-
-        return $this;
+        $this->nbchambres = $nbchambres;
     }
 
     /**
-     * Get ville
-     *
      * @return string
      */
     public function getVille()
     {
         return $this->ville;
     }
+
+    /**
+     * @param string $ville
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+    }
+
 }

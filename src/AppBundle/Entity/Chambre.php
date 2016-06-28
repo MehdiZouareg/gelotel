@@ -2,81 +2,54 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Chambre
- *
- * @ORM\Table(name="Chambre", indexes={@ORM\Index(name="FK_Chambre_id_Hotel", columns={"id_Hotel"}), @ORM\Index(name="FK_Chambre_id_Reservation", columns={"id_Reservation"})})
  * @ORM\Entity
  */
 class Chambre
 {
     /**
      * @var integer
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var boolean
-     *
      * @ORM\Column(name="disponible", type="boolean", nullable=true)
      */
     private $disponible;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="type", type="string", length=25, nullable=true)
      */
     private $type;
 
     /**
-     * @var \Reservation
-     *
-     * @ORM\ManyToOne(targetEntity="Reservation")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_Reservation", referencedColumnName="id")
-     * })
+     * @var Hotel
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Hotel", inversedBy="Chambres")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $idReservation;
+    private $Hotel;
 
     /**
-     * @var \Hotel
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Hotel")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_Hotel", referencedColumnName="id")
-     * })
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Options", inversedBy="Chambres")
      */
-    private $idHotel;
+    private $Options;
 
-
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Chambre
-     */
-    public function setId($id)
+    public function __construct()
     {
-        $this->id = $id;
-
-        return $this;
+        $this->Options = new ArrayCollection();
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -84,46 +57,71 @@ class Chambre
     }
 
     /**
-     * Set disponible
-     *
-     * @param boolean $disponible
-     *
-     * @return Chambre
+     * @return ArrayCollection
      */
-    public function setDisponible($disponible)
+    public function getOptions()
     {
-        $this->disponible = $disponible;
-
-        return $this;
+        return $this->Options;
     }
 
     /**
-     * Get disponible
-     *
+     * @param ArrayCollection $Options
+     */
+    public function setOptions($Options)
+    {
+        $this->Options->clear();
+
+        foreach($Options as $Option)
+        {
+            $this->AddOption($Option);
+        }
+    }
+
+    public function AddOption(Options $Option)
+    {
+        $this->Options->add($Option);
+
+        if(!$Option->getChambres()->contains($this)){
+            $Option->AddChambre($this);
+        }
+    }
+
+    public function RemoveOption(Options $Option)
+    {
+        $this->Options->RemoveElement($Option);
+
+        if ($Option->getChambres()->contains($this))
+        {
+            $Option->AddChambre($this);
+        }
+
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return boolean
      */
-    public function getDisponible()
+    public function isDisponible()
     {
         return $this->disponible;
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Chambre
+     * @param boolean $disponible
      */
-    public function setType($type)
+    public function setDisponible($disponible)
     {
-        $this->type = $type;
-
-        return $this;
+        $this->disponible = $disponible;
     }
 
     /**
-     * Get type
-     *
      * @return string
      */
     public function getType()
@@ -132,50 +130,28 @@ class Chambre
     }
 
     /**
-     * Set idReservation
-     *
-     * @param \AppBundle\Entity\Reservation $idReservation
-     *
-     * @return Chambre
+     * @param string $type
      */
-    public function setIdReservation(\AppBundle\Entity\Reservation $idReservation = null)
+    public function setType($type)
     {
-        $this->idReservation = $idReservation;
-
-        return $this;
+        $this->type = $type;
     }
 
     /**
-     * Get idReservation
-     *
-     * @return \AppBundle\Entity\Reservation
+     * @return Hotel
      */
-    public function getIdReservation()
+    public function getHotel()
     {
-        return $this->idReservation;
+        return $this->Hotel;
     }
 
     /**
-     * Set idHotel
-     *
-     * @param \AppBundle\Entity\Hotel $idHotel
-     *
-     * @return Chambre
+     * @param Hotel $Hotel
      */
-    public function setIdHotel(\AppBundle\Entity\Hotel $idHotel)
+    public function setHotel(Hotel $Hotel)
     {
-        $this->idHotel = $idHotel;
-
-        return $this;
+        $this->Hotel = $Hotel;
     }
 
-    /**
-     * Get idHotel
-     *
-     * @return \AppBundle\Entity\Hotel
-     */
-    public function getIdHotel()
-    {
-        return $this->idHotel;
-    }
+
 }

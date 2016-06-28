@@ -4,17 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Reservation
- *
- * @ORM\Table(name="Reservation", indexes={@ORM\Index(name="FK_Reservation_id_Chambre", columns={"id_Chambre"}), @ORM\Index(name="FK_Reservation_id_Hotel", columns={"id_Hotel"})})
  * @ORM\Entity
  */
 class Reservation
 {
     /**
      * @var integer
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -23,7 +20,6 @@ class Reservation
 
     /**
      * @var \DateTime
-     *
      * @ORM\Column(name="dateArr", type="date", nullable=true)
      */
     private $datearr;
@@ -36,31 +32,44 @@ class Reservation
     private $datedep;
 
     /**
-     * @var \Hotel
-     *
-     * @ORM\ManyToOne(targetEntity="Hotel")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_Hotel", referencedColumnName="id")
-     * })
+     * @var Hotel
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Hotel")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $idHotel;
+    private $Hotel;
 
     /**
-     * @var \Chambre
-     *
-     * @ORM\ManyToOne(targetEntity="Chambre")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_Chambre", referencedColumnName="id")
-     * })
+     * @var Chambre
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Chambre")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $idChambre;
+    private $Chambre;
 
+    /**
+     * @var Utilisateur
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur")
+     */
+    private $Utilisateur;
+
+    /**
+     * @return Utilisateur
+     */
+    public function getUtilisateur()
+    {
+        return $this->Utilisateur;
+    }
+
+    /**
+     * @param Utilisateur $Utilisateur
+     */
+    public function setUtilisateur($Utilisateur)
+    {
+        $this->Utilisateur = $Utilisateur;
+    }
 
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -68,22 +77,14 @@ class Reservation
     }
 
     /**
-     * Set datearr
-     *
-     * @param \DateTime $datearr
-     *
-     * @return Reservation
+     * @param int $id
      */
-    public function setDatearr($datearr)
+    public function setId($id)
     {
-        $this->datearr = $datearr;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get datearr
-     *
      * @return \DateTime
      */
     public function getDatearr()
@@ -92,22 +93,14 @@ class Reservation
     }
 
     /**
-     * Set datedep
-     *
-     * @param \DateTime $datedep
-     *
-     * @return Reservation
+     * @param \DateTime $datearr
      */
-    public function setDatedep($datedep)
+    public function setDatearr($datearr)
     {
-        $this->datedep = $datedep;
-
-        return $this;
+        $this->datearr = $datearr;
     }
 
     /**
-     * Get datedep
-     *
      * @return \DateTime
      */
     public function getDatedep()
@@ -116,50 +109,45 @@ class Reservation
     }
 
     /**
-     * Set idHotel
-     *
-     * @param \AppBundle\Entity\Hotel $idHotel
-     *
-     * @return Reservation
+     * @param \DateTime $datedep
      */
-    public function setIdHotel(\AppBundle\Entity\Hotel $idHotel = null)
+    public function setDatedep($datedep)
     {
-        $this->idHotel = $idHotel;
-
-        return $this;
+        $this->datedep = $datedep;
     }
 
     /**
-     * Get idHotel
-     *
-     * @return \AppBundle\Entity\Hotel
+     * @return Hotel
      */
-    public function getIdHotel()
+    public function getHotel()
     {
-        return $this->idHotel;
+        return $this->Hotel;
     }
 
     /**
-     * Set idChambre
-     *
-     * @param \AppBundle\Entity\Chambre $idChambre
-     *
-     * @return Reservation
+     * @param Hotel $Hotel
      */
-    public function setIdChambre(\AppBundle\Entity\Chambre $idChambre = null)
+    public function setHotel(Hotel $Hotel)
     {
-        $this->idChambre = $idChambre;
-
-        return $this;
+        $this->Hotel = $Hotel;
     }
 
     /**
-     * Get idChambre
-     *
-     * @return \AppBundle\Entity\Chambre
+     * @return Chambre
      */
-    public function getIdChambre()
+    public function getChambre()
     {
-        return $this->idChambre;
+        return $this->Chambre;
     }
+
+    /**
+     * @param Chambre $Chambre
+     */
+    public function setChambre(Chambre $Chambre)
+    {
+        $this->Chambre = $Chambre;
+    }
+
+
+
 }
