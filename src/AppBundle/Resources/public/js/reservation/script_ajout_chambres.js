@@ -1,4 +1,11 @@
-$('').on('input', function () {
+$(document).ready(function () {
+    console.log("Go");
+    $('#reservation_chambre').parent().hide();
+
+});
+
+$('#reservation_hotel').( function () {
+    console.log("yes");
     $.ajax
     ({
         url: Routing.generate('', true),
@@ -19,7 +26,7 @@ $('').on('input', function () {
 
             for (i = 0; i <= objData.length - 1; i++) {
 
-                
+
                 
             }
 
