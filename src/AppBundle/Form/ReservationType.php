@@ -23,7 +23,7 @@ class ReservationType extends AbstractType
             ->add('datearr')
             ->add('datedep')
             ->add('hotel', EntityType::Class, array('class' => 'AppBundle:Hotel', 'label' => 'Hotel', 'choice_label' => 'nom'))
-            ->add('chambre', EntityType::Class, array('class' => 'AppBundle:Chambre', 'label' => 'Chambre', 'choice_label' => 'id'))
+            ->add('chambre', EntityType::Class, array('class' => 'AppBundle:Chambre', 'label' => 'Chambre', 'choice_label' => 'Id'))
         ;
     }
     
