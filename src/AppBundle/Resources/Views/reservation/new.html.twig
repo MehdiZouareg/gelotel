@@ -10,17 +10,55 @@
         {{ form_row(form.chambre, {'attr': {'class': 'chambre-form', 'role': 'form', 'id': 'chambre'}} ) }}
     {{ form_end(form) }}
 
-    <input id="search-button" type="submit" value="Trouver les chambres disponibles" />
+    <input id="search-button" type="submit" value="Trouver les chambres disponibles"/>
 
     <ul>
         <li>
             <a href="{{ path('reservation_index') }}">Back to the list</a>
         </li>
     </ul>
-{% endblock %}
-
-{% block javascript %}
 
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/jquery-3.0.0.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/reservation/script_ajout_chambres.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+        $('#search-button').on('click', function (prototype) {
+
+            $.ajax
+            ({
+
+                url: Routing.generate('recherche_chambre'),
+                method: "POST",
+                data: "hotel=" + $('#search-input').val(),
+                success: function (data) {
+                    $('#results').html('');
+                    $prevajax = null;
+
+                    console.log(data);
+
+
+                    //Le JSON est transformé en objet ici
+                    var objData = jQuery.parseJSON(data);
+
+                    for (i = 0; i <= objData.length - 1; i++) {
+
+
+
+                    }
+
+
+                }
+
+
+            });
+        });
+    </script>
+{% endblock %}
+
+
 
 

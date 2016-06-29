@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    console.log("Go");
+    console.log("Do");
     $('#reservation_chambre').parent().hide();
 
 });
 
-$('#reservation_hotel').( function () {
+$('#search-button').on('input', function (prototype) {
     console.log("yes");
-    $.ajax
+    /*$.ajax
     ({
         url: Routing.generate('', true),
         method: "POST",
@@ -34,5 +34,5 @@ $('#reservation_hotel').( function () {
         }
 
 
-    });
-})
+    });*/
+});
