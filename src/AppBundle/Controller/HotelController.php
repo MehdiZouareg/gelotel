@@ -28,7 +28,7 @@ class HotelController extends Controller
 
         $hotels = $em->getRepository('AppBundle:Hotel')->findAll();
 
-        return $this->render('hotel/index.html.twig', array(
+        return $this->render('AppBundle:hotel:index.html.twig', array(
             'hotels' => $hotels,
         ));
     }
@@ -53,7 +53,7 @@ class HotelController extends Controller
             return $this->redirectToRoute('hotel_show', array('id' => $hotel->getId()));
         }
 
-        return $this->render('hotel/new.html.twig', array(
+        return $this->render('AppBundle:hotel:new.html.twig', array(
             'hotel' => $hotel,
             'form' => $form->createView(),
         ));
@@ -69,7 +69,7 @@ class HotelController extends Controller
     {
         $deleteForm = $this->createDeleteForm($hotel);
 
-        return $this->render('hotel/show.html.twig', array(
+        return $this->render('AppBundle:hotel:show.html.twig', array(
             'hotel' => $hotel,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -95,7 +95,7 @@ class HotelController extends Controller
             return $this->redirectToRoute('hotel_edit', array('id' => $hotel->getId()));
         }
 
-        return $this->render('hotel/edit.html.twig', array(
+        return $this->render('AppBundle:hotel:edit.html.twig', array(
             'hotel' => $hotel,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

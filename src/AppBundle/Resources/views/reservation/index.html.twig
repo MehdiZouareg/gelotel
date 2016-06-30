@@ -1,0 +1,43 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h2>Toutes les reservations</h2></br>
+
+    <table class="table table-borderd">
+        <thead>
+        <th>Id</th>
+        <th>Hôtel</th>
+        <th>Chambre</th>
+        <th>Client</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <!-- {% for reservation in reservations %} -->
+        <tr>
+            <td><a href="{{ path('reservation_show', { 'id': reservation.id }) }}">{{ reservation.id }}</a></td> <!-- + lien -->
+            <td>{{ reservation.Utilisateur.nom }}</td> <!-- nom hotel -->
+            <td>{{ reservation.Hotel.Nom }}</td> <
+            <td>{{ reservation.Utilisateur.nom }}</td>
+            <td>
+                <p><a href="{{ path('reservation_show', { 'id': reservation.id }) }}">show</a> | <a href="{{ path('reservation_edit', { 'id': reservation.id }) }}">edit</a> </p>
+            </td>
+        </tr>
+        <!-- {% endfor %} -->
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_new') }}">Ajouter une réservation</a>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

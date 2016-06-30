@@ -1,0 +1,24 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Reservation creation</h1>
+    {{ form_start(form, {'attr': {'id': 'form-resa' }} ) }}
+    {{ form_row(form.datearr) }}
+    {{ form_row(form.datedep) }}
+    {{ form_row(form.hotel) }}
+    {{ form_end(form)}}
+
+    {{ form_start(form, {'attr': {'id': 'chambre'}}) }}
+        {{ form_row(form.chambre, {'attr': {'class': 'chambre-form', 'role': 'form', 'id': 'chambre'}} ) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('reservation_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
+
+
+

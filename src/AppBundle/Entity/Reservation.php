@@ -48,7 +48,7 @@ class Reservation
 
     /**
      * @var Utilisateur
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Utilisateur", inversedBy="Reservations")
      */
     private $Utilisateur;
 

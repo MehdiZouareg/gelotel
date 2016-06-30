@@ -1,0 +1,37 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Reservation</h1>
+
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>Datearr</th>
+                <td>{% if reservation.datearr %}{{ reservation.datearr|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datedep</th>
+                <td>{% if reservation.datedep %}{{ reservation.datedep|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('reservation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('reservation_edit', { 'id': reservation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
