@@ -1,7 +1,7 @@
-$('#search-input').on('input', function () {
+$('').on('input', function () {
     $.ajax
     ({
-        url: Routing.generate('perischool_tiers_recherche', true),
+        url: Routing.generate('', true),
         method: "POST",
         data: "hotel=" + $('#search-input').val(),
         success: function (data) {
@@ -19,7 +19,8 @@ $('#search-input').on('input', function () {
 
             for (i = 0; i <= objData.length - 1; i++) {
 
-
+                
+                
             }
 
 
@@ -27,4 +28,4 @@ $('#search-input').on('input', function () {
 
 
     });
-}
+})

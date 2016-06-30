@@ -39,8 +39,7 @@ class ChambreRepository extends \Doctrine\ORM\EntityRepository
             ->from($this->_entityName, 'c')
             ->where('c.Hotel = :idHotel')
             ->setParameter('idHotel', $hotel)
-            ->andWhere('c.disponible = true')
-            ->andWhere();
+            ->andWhere('c.disponible = true');
 
 
         return $qb->getQuery()
