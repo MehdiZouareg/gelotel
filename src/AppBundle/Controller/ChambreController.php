@@ -4,13 +4,19 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Chambre;
-use Perischool\CoreBundle\Repository\ChambreRepository;
-use Perischool\CoreBundle\Repository;
+use AppBundle\Form\ChambreType;
+use AppBundle\Repository\ChambreRepository;
+use AppBundle\Repository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use JMS\SerializerBundle\JMSSerializerBundle;
 
 
 class ChambreController extends Controller
@@ -26,18 +32,18 @@ class ChambreController extends Controller
         $hotel = $request->request->get('hotel');
         $dateDep = $request->request->get('dateDep');
         $dateArr = $request->request->get('dateArr');
-        $options = $request->request->get('options');
 
-        $options = $this->formatOptions($options);
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
 
-        $listeChambres = $em->getRepository('AppBundle:Chambre')->listeDisponiblesByHotel($hotel, $dateDep, $dateArr, $options);
+        $serializer = $container->get('jms_serializer');
+       
 
-        return new Response(json_encode($listeChambres), 200);
+        $listeChambres = $em->getRepository('AppBundle:Chambre')->listeDisponiblesByHotel($hotel, $dateDep, $dateArr);
+
+
+        return new Response($serializer->serialize($listeChambres,'json'), 200);
 
     }
 
-    public function formatOptions($options)
-    {
-
-    }
 }

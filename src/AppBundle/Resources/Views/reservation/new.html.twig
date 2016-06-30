@@ -27,14 +27,27 @@
     <script>
         var $prevajax = null;
         $('#search-button').on('click', function (prototype) {
-            var rh = document.getElementById("reservation_hotel");
-            var dDep = document.getElementById("reservation_dateDep");
-            var dArr = document.getElementById("reservation_dateArr");
 
-            var strUser = rh.options[rh.selectedIndex].value;
-            var strDep = dDep.options[dDep.selectedIndex].value;
-            var strArr = dArr.options[dArr.selectedIndex].value;
-            console.log(strUser);
+            var rh = document.getElementById("reservation_hotel");
+            var dDepyear = document.getElementById("reservation_datedep_year");
+            var dDepmonth = document.getElementById("reservation_datedep_month");
+            var dDepday = document.getElementById("reservation_datedep_day");
+            var dArryear = document.getElementById("reservation_datearr_year");
+            var dArrmonth = document.getElementById("reservation_datearr_month");
+            var dArrday = document.getElementById("reservation_datearr_day");
+
+            var strRh = rh.options[rh.selectedIndex].value;
+            var strDepyear = dDepyear.options[dDepyear.selectedIndex].value;
+            var strDepmonth = dDepmonth.options[dDepmonth.selectedIndex].value;
+            var strDepday = dDepday.options[dDepday.selectedIndex].value;
+            var strArryear = dArryear.options[dArryear.selectedIndex].value;
+            var strArrmonth = dArrmonth.options[dArrmonth.selectedIndex].value;
+            var strArrday = dArrday.options[dArrday.selectedIndex].value;
+
+            var dateDep = strDepyear + "-" + strDepmonth + "-" + strDepday;
+            var dateArr = strArryear + "-" + strArrmonth + "-" + strArrday;
+            console.log(dateDep + " " + dateArr);
+
             if ($prevajax)
             {
                 $prevajax = null;
@@ -43,27 +56,25 @@
             ({
 
                 url: Routing.generate('recherche_chambre'),
-                method: "GET",
-                data: "hotel=" + strUser + "options=" + strOpt + "dateDep=" + strDep + "dateArr=" + strArr,
+                method: "POST",
+                data: {hotel : strRh, dateDep : dateDep, dateArr : dateArr},
                 success: function (data) {
                     $('#results').html('');
                     $prevajax = null;
-
-
-
-
+                    console.log(data);
                     //Le JSON est transformé en objet ici
                     var objData = jQuery.parseJSON(data);
                     console.log(objData);
                     for (i = 0; i <= objData.length - 1; i++) {
-
-
-
+                        console.log(objData[i].id);
                     }
 
-
+                },
+                error: function (data)
+                {
+                    console.log("Erreur Serveur !");
+                    console.log(data);
                 }
-
 
             });
         });

@@ -1,6 +1,7 @@
 <?php
 
-namespace Perischool\CoreBundle\Repository;
+namespace AppBundle\Repository;
+use AppBundle\Entity\Reservation;
 
 /**
 * ChambreRepository
@@ -32,15 +33,28 @@ class ChambreRepository extends \Doctrine\ORM\EntityRepository
     ->getArrayResult();
     }
 
-    public function listeDisponiblesByHotel($hotel, $date)
+    public function listeDisponiblesByHotel($hotel, $dateDep, $dateArr)
     {
-        $qb = $this->_em->createQueryBuilder()
+        /*$qb = $this->_em->createQueryBuilder()
             ->select('c')
             ->from($this->_entityName, 'c')
+            ->innerJoin('c.reservation', 'r' )
+            ->innerJoin('c.Hotel' , 'r
             ->where('c.Hotel = :idHotel')
             ->setParameter('idHotel', $hotel)
-            ->andWhere('c.disponible = true');
+            ->setParameter('reservation', $this->_em->getRepository('AppBundle:Reservation')->findAll(), Reservation::class)
+            ->andWhere('c.disponible = true');*/
 
+        $qb = $this->_em->createQueryBuilder()
+            ->select('c')
+            ->from($this->_entityName, 'c');
+
+        /*SELECT * FROM chambre c
+        INNER JOIN reservation r ON c.id = r.chambre_id
+        WHERE hotel = $hotel
+        AND (dateArr > $dateDebutVac AND dateDep > $dateDebutVac)
+        OR (dateArr < $dateDebutVac AND dateDep < $dateDebutVac)
+        OR (dateArr > $dateFinVac AND dateDep < $dateDebutVac)*/
 
         return $qb->getQuery()
             ->getResult();
