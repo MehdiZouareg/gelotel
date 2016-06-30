@@ -14,7 +14,7 @@ class ChambreRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->_em->createQueryBuilder()
             ->select('r')
-            ->from($this->_entityName, '');
+            ->from($this->_entityName, 'r');
 
         return $qb
             ->getQuery()
@@ -32,15 +32,13 @@ class ChambreRepository extends \Doctrine\ORM\EntityRepository
             ->getArrayResult();
     }
 
-    public function listeDisponiblesByHotel($hotel, $date)
+    public function listeDisponiblesByHotel($hotel)
     {
         $qb = $this->_em->createQueryBuilder()
-            ->select('c')
+            ->select('id')
             ->from($this->_entityName, 'c')
             ->where('c.Hotel = :idHotel')
-            ->setParameter('idHotel', $hotel)
-            ->andWhere('c.disponible = true');
-
+            ->setParameter('idHotel', $hotel);
 
         return $qb->getQuery()
             ->getResult();

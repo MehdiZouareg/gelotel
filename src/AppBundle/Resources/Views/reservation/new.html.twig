@@ -6,7 +6,6 @@
         {{ form_row(form.datearr) }}
         {{ form_row(form.datedep) }}
         {{ form_row(form.hotel) }}
-
         {{ form_row(form.chambre, {'attr': {'class': 'chambre-form', 'role': 'form', 'id': 'chambre'}} ) }}
     {{ form_end(form) }}
 
@@ -26,24 +25,36 @@
     <script src="{{ asset('bundles/app/js/reservation/script_ajout_chambres.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script>
+        var $prevajax = null;
         $('#search-button').on('click', function (prototype) {
+            var rh = document.getElementById("reservation_hotel");
+            var dDep = document.getElementById("reservation_dateDep");
+            var dArr = document.getElementById("reservation_dateArr");
 
-            $.ajax
+            var strUser = rh.options[rh.selectedIndex].value;
+            var strDep = dDep.options[dDep.selectedIndex].value;
+            var strArr = dArr.options[dArr.selectedIndex].value;
+            console.log(strUser);
+            if ($prevajax)
+            {
+                $prevajax = null;
+            }
+            $prevajax = $.ajax
             ({
 
                 url: Routing.generate('recherche_chambre'),
-                method: "POST",
-                data: "hotel=" + $('#search-input').val(),
+                method: "GET",
+                data: "hotel=" + strUser + "options=" + strOpt + "dateDep=" + strDep + "dateArr=" + strArr,
                 success: function (data) {
                     $('#results').html('');
                     $prevajax = null;
 
-                    console.log(data);
+
 
 
                     //Le JSON est transformé en objet ici
                     var objData = jQuery.parseJSON(data);
-
+                    console.log(objData);
                     for (i = 0; i <= objData.length - 1; i++) {
 
 

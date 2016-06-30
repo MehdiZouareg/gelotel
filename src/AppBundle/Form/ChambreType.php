@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +19,8 @@ class ChambreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('chambre', EntityType::Class, array('class' => 'AppBundle:Chambre', 'label' => 'Chambre'));
+            ->add('chambre', EntityType::Class, array('class' => 'AppBundle:Chambre', 'label' => 'Chambre'))
+            ->add('options', EntityType::class, array('class' => 'AppBundle:Options', 'label' => 'Options'));
     }
 
     /**
