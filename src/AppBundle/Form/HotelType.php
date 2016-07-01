@@ -16,7 +16,6 @@ class HotelType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('nbchambres')
             ->add('ville')
         ;
     }

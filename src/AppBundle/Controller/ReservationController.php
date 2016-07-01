@@ -28,6 +28,7 @@ class ReservationController extends Controller
 
         $reservations = $em->getRepository('AppBundle:Reservation')->findAll();
 
+
         return $this->render('AppBundle:reservation:index.html.twig', array(
             'reservations' => $reservations
             

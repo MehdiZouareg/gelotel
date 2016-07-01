@@ -47,7 +47,9 @@ class ChambreRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->_em->createQueryBuilder()
             ->select('c')
-            ->from($this->_entityName, 'c');
+            ->from($this->_entityName, 'c')
+            ->where('c.id = :id')
+            ->setParameter(':id', 10);
 
         /*SELECT * FROM chambre c
         INNER JOIN reservation r ON c.id = r.chambre_id

@@ -79,7 +79,6 @@ class Hotel
 
     }
 
-
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Chambre", mappedBy="Hotel")

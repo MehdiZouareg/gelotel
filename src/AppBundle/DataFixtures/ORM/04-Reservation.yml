@@ -1,0 +1,6 @@
+AppBundle\Entity\Reservation:
+  Chambre-{1..50}:
+    datearr: <date()>
+    datedep: <date()>
+    Chambre: '@Chambre-<numberBetween(1,50)>'
+    Utilisateur: '@Utilisateur-<numberBetween(1,50)>'

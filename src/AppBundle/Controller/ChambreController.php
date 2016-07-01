@@ -36,8 +36,8 @@ class ChambreController extends Controller
         $encoders = array(new XmlEncoder(), new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
 
-        $serializer = $container->get('jms_serializer');
-       
+        $serializer = $this->get('jms_serializer');
+
 
         $listeChambres = $em->getRepository('AppBundle:Chambre')->listeDisponiblesByHotel($hotel, $dateDep, $dateArr);
 
